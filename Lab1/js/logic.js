@@ -21,7 +21,7 @@ function CreateRegister(polinom) {
     obj.getValue = function() {
         return this.value;
     };
-
+    
     console.log("Shift register created with start value: " + obj.value.toString(16));
     return obj;
 }
