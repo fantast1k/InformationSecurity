@@ -7,19 +7,20 @@
  */
 
 function CreateRegister(polinom) {
-    this.ShiftRegister = Math.round(Math.random() * ((~0x0)>>>0));
-    console.log("Shift register created with star value: " + ShiftRegister.toString(16));
+    var obj = {};
+    var shiftRegister = Math.round(Math.random() * ((~0x0)>>>0));
+    console.log("Shift register created with start value: " + shiftRegister.toString(16));
 
-    this.Next = function() {
+    obj.Next = function() {
         var shiftBit = 0x0;
         for (var i = 0; i < polinom.length; i++) {
-            shiftBit ^= (ShiftRegister >> polinom[i]);
+            shiftBit ^= (shiftRegister >> polinom[i]);
             shiftBit >>>= 0;
         }
-        ShiftRegister = ((((shiftBit & 0x1) << 31) >>> 0) | (ShiftRegister >>> 1)) >>> 0;
-        return ShiftRegister & 0x1;
+        shiftRegister = ((((shiftBit & 0x1) << 31) >>> 0) | (shiftRegister >>> 1)) >>> 0;
+        return shiftRegister & 0x1;
     }
-    return this;
+    obj.getValue = function()
 }
 
 function main() {
