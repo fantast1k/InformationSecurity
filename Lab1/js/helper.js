@@ -37,3 +37,19 @@ function clone(obj) {
 
     throw new Error("Unable to copy obj! Its type isn't supported.");
 }
+
+function StringToData(str) {
+    var list = new Array();
+    for(var i = 0, l = str.length; i < l; i++) {
+        list.push((str.charCodeAt(i)) >>> 0);
+    }
+    return list;
+}
+
+function DataToString(data) {
+    var str = '';
+    for (var i = 0, l = data.length; i < l; i++) {
+        str += String.fromCharCode(data[i]);
+    }
+    return str;
+}

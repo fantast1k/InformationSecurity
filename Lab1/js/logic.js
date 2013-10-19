@@ -21,11 +21,46 @@ function CreateRegister(polinom) {
     obj.getValue = function() {
         return this.value;
     };
-    
+
     console.log("Shift register created with start value: " + obj.value.toString(16));
     return obj;
 }
 
+function RegisterMergeFunc(reg1, reg2, reg3) {
+    return function() {
+        var v1 = reg1.Next();
+        var v2 = reg2.Next();
+        var v3 = reg3.Next();
+
+        return ((v1 ^ v2 ^ v3 ^ (v1 & v2) ^ (v1 & v2 & v3)) & 0x1) >>> 0;
+    }
+}
+
+function EncryptData(mergeFunc, data) {
+    var charMerg = function(mergeFunc, char) {
+        for (var i = 15; i >= 0; i--) {
+            char ^= (mergeFunc() << i)
+        }
+        return char;
+    }
+
+    var encData = new Array();
+    for(var i = 0, l = data.length; i < l; i++) {
+        encData.push(charMerg(mergeFunc, data[i]));
+    }
+    return encData;
+}
+
 function main() {
-    var reg = CreateRegister([7,5,3,2,1,0]);
+    var reg1 = CreateRegister([7,5,3,2,1,0]);
+    var reg2 = CreateRegister([7,5,3,2,1,0]);
+    var reg3 = CreateRegister([7,5,3,2,1,0]);
+
+    var regMerge = RegisterMergeFunc(reg1, reg2, reg3);
+    var regMergeCopy = RegisterMergeFunc(clone(reg1), clone(reg2), clone(reg3));
+
+    var data = StringToData("hello");
+    var encData = EncryptData(regMerge, data);
+    var decData = EncryptData(regMergeCopy, encData);
+    console.log(DataToString(decData));
 }
