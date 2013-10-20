@@ -1,145 +1,142 @@
-
 var model;
 
 function CreateModel() {
-    var obj = {};
-    obj.registerOne = CreateRegister([7,5,3,2,1,0]);
-    obj.registerTwo = CreateRegister([7,5,3,2,1,0]);
-    obj.registerThree = CreateRegister([7,5,3,2,1,0]);
+    this.registerOne = new CreateRegister([7,5,3,2,1,0]);
+    this.registerTwo = new CreateRegister([7,5,3,2,1,0]);
+    this.registerThree = new CreateRegister([7,5,3,2,1,0]);
 
-    obj.mergedBit = 0;
-    obj.inProgress = false;
-    obj.string = '';
+    this.mergedBit = 0;
+    this.inProgress = false;
+    this.string = '';
 
-    obj.encodedData = new Array();
-    obj.decodedData = new Array();
-    obj.stringData = new Array();
+    this.encodedData = new Array();
+    this.decodedData = new Array();
+    this.stringData = new Array();
 
-    obj.encodedBinaryString = '';
-    obj.decodedBinaryString = '';
-    obj.plainBinaryString = '';
+    this.encodedBinaryString = '';
+    this.decodedBinaryString = '';
+    this.plainBinaryString = '';
 
-    obj.Start = function(str) {
-        obj.string = str;
-        obj.inProgress = true;
-        obj.__prepare();
+    this.Start = function(str) {
+        this.string = str;
+        this.inProgress = true;
+        this.__prepare();
     }
 
-    obj.Next = function() {
-        if (obj.inProgress) {
-            obj.__next();
+    this.Next = function() {
+        if (this.inProgress) {
+            this.__next();
         }
     }
 
-    obj.DoAllScope = function() {
-        while(obj.inProgress) {
-            obj.Next();
+    this.DoAllScope = function() {
+        while(this.inProgress) {
+            this.Next();
         }
     }
 
-    obj.__prepare = function() {
-        obj.encodedData.length = 0;
-        obj.decodedData.length = 0;
+    this.__prepare = function() {
+        this.encodedData.length = 0;
+        this.decodedData.length = 0;
 
-        obj.encodedBinaryString = '';
-        obj.decodedBinaryString = '';
+        this.encodedBinaryString = '';
+        this.decodedBinaryString = '';
 
-        obj.stringData = StringToData(obj.string);
-        obj.plainBinaryString = DataToBinaryString(obj.stringData);
+        this.stringData = StringToData(this.string);
+        this.plainBinaryString = DataToBinaryString(this.stringData);
 
-        obj.__prepare_tmp();
+        this.__prepare_tmp();
     }
 
-    obj.__prepare_tmp = function() {
-        obj.__regCopyOne = clone(obj.registerOne);
-        obj.__regCopyTwo = clone(obj.registerTwo);
-        obj.__regCopyThree = clone(obj.registerThree);
+    this.__prepare_tmp = function() {
+        this.__regCopyOne = clone(this.registerOne);
+        this.__regCopyTwo = clone(this.registerTwo);
+        this.__regCopyThree = clone(this.registerThree);
 
-        obj.__encodingLeftSymb = 0;
-        obj.__decodingLeftSymb = 0;
+        this.__encodingLeftSymb = 0;
+        this.__decodingLeftSymb = 0;
 
-        obj.__bitNomInSymbol = 15;
+        this.__bitNomInSymbol = 15;
     }
 
-    obj.__next = function() {
-        if (obj.__checkTheEnd()) {
-            obj.inProgress = false;
+    this.__next = function() {
+        if (this.__checkTheEnd()) {
+            this.inProgress = false;
             return;
         }
 
-        obj.__shuffle();
-        if (obj.__encodingLeftSymb < obj.stringData.length) {
-            obj.__doEncodeNext();
+        this.__shuffle();
+        if (this.__encodingLeftSymb < this.stringData.length) {
+            this.__doEncodeNext();
 
-            if (obj.__encodingLeftSymb == obj.stringData.length) {
-                obj.__swapRegisters();
+            if (this.__encodingLeftSymb == this.stringData.length) {
+                this.__swapRegisters();
             }
         }
         else {
-            obj.__doDecodeNext();
+            this.__doDecodeNext();
         }
     }
 
-    obj.__checkTheEnd = function() {
-        return obj.__encodingLeftSymb === obj.stringData.length && obj.__decodingLeftSymb === obj.stringData.length;
+    this.__checkTheEnd = function() {
+        return this.__encodingLeftSymb === this.stringData.length && this.__decodingLeftSymb === this.stringData.length;
     }
 
-    obj.__doEncodeNext = function() {
-        var short = obj.encodedData[obj.__encodingLeftSymb] ^ (obj.stringData[obj.__encodingLeftSymb] & (0x1 << obj.__bitNomInSymbol));
-        short ^= (obj.mergedBit << obj.__bitNomInSymbol);
-        obj.encodedData[obj.__encodingLeftSymb] = short;
+    this.__doEncodeNext = function() {
+        var short = this.encodedData[this.__encodingLeftSymb] ^ (this.stringData[this.__encodingLeftSymb] & (0x1 << this.__bitNomInSymbol));
+        short ^= (this.mergedBit << this.__bitNomInSymbol);
+        this.encodedData[this.__encodingLeftSymb] = short;
 
-        obj.encodedBinaryString += ((short >>> obj.__bitNomInSymbol) & 0x1).toString(2);
+        this.encodedBinaryString += ((short >>> this.__bitNomInSymbol) & 0x1).toString(2);
 
-        obj.__bitNomInSymbol--;
-        if (obj.__bitNomInSymbol < 0) {
-            obj.__bitNomInSymbol = 15;
-            obj.__encodingLeftSymb++;
+        this.__bitNomInSymbol--;
+        if (this.__bitNomInSymbol < 0) {
+            this.__bitNomInSymbol = 15;
+            this.__encodingLeftSymb++;
 
-            obj.encodedBinaryString += ' ';
+            this.encodedBinaryString += ' ';
         }
     }
 
-    obj.__doDecodeNext = function() {
-        var short = obj.decodedData[obj.__decodingLeftSymb] ^ (obj.encodedData[obj.__decodingLeftSymb] & (0x1 << obj.__bitNomInSymbol));
-        short ^= (obj.mergedBit << obj.__bitNomInSymbol);
-        obj.decodedData[obj.__decodingLeftSymb] = short;
+    this.__doDecodeNext = function() {
+        var short = this.decodedData[this.__decodingLeftSymb] ^ (this.encodedData[this.__decodingLeftSymb] & (0x1 << this.__bitNomInSymbol));
+        short ^= (this.mergedBit << this.__bitNomInSymbol);
+        this.decodedData[this.__decodingLeftSymb] = short;
 
-        obj.decodedBinaryString += ((short >>> obj.__bitNomInSymbol) & 0x1).toString(2);
+        this.decodedBinaryString += ((short >>> this.__bitNomInSymbol) & 0x1).toString(2);
 
-        obj.__bitNomInSymbol--;
-        if (obj.__bitNomInSymbol < 0) {
-            obj.__bitNomInSymbol = 15;
-            obj.__decodingLeftSymb++;
+        this.__bitNomInSymbol--;
+        if (this.__bitNomInSymbol < 0) {
+            this.__bitNomInSymbol = 15;
+            this.__decodingLeftSymb++;
 
-            obj.decodedBinaryString += ' ';
+            this.decodedBinaryString += ' ';
         }
     }
 
-    obj.__swapRegisters = function() {
-        obj.registerOne = obj.__regCopyOne;
-        obj.registerTwo = obj.__regCopyTwo;
-        obj.registerThree = obj.__regCopyThree;
+    this.__swapRegisters = function() {
+        this.registerOne = this.__regCopyOne;
+        this.registerTwo = this.__regCopyTwo;
+        this.registerThree = this.__regCopyThree;
     }
 
-    obj.__shuffle = function() {
-        var v1 = obj.registerOne.Next();
-        var v2 = obj.registerTwo.Next();
-        var v3 = obj.registerTwo.Next();
+    this.__shuffle = function() {
+        var v1 = this.registerOne.Next();
+        var v2 = this.registerTwo.Next();
+        var v3 = this.registerTwo.Next();
 
-        obj.mergedBit = ((v1 ^ v2 ^ v3 ^ (v1 & v2) ^ (v1 & v2 & v3)) & 0x1) >>> 0;
+        this.mergedBit = ((v1 ^ v2 ^ v3 ^ (v1 & v2) ^ (v1 & v2 & v3)) & 0x1) >>> 0;
     }
 
-    return obj;
+    return this;
 }
 
 function CreateRegister(polinom) {
-    var obj = {};
-    obj.value = Math.round(Math.random() * ((~0x0)>>>0));
-    obj.polinom = polinom;
-    obj.shiftedBit = 0;
+    this.value = Math.round(Math.random() * ((~0x0)>>>0));
+    this.polinom = polinom;
+    this.shiftedBit = 0;
 
-    obj.Next = function() {
+    this.Next = function() {
         var shiftBit = 0x0;
         for (var i = 0; i < polinom.length; i++) {
             shiftBit ^= (this.value >> polinom[i]);
@@ -149,12 +146,12 @@ function CreateRegister(polinom) {
         this.shiftedBit = this.value & 0x1;
         return this.shiftedBit;
     }
-    obj.GetBinaryString = function() {
-        return ('00000000000000000000000000000000' + obj.value.toString(2)).substr(-32);
+    this.GetBinaryString = function() {
+        return ('00000000000000000000000000000000' + this.value.toString(2)).substr(-32);
     }
 
-    console.log("Shift register have been created with start value: " + obj.value.toString(16));
-    return obj;
+    console.log("Shift register have been created with start value: " + this.value.toString(16));
+    return this;
 }
 
 function main() {
@@ -174,16 +171,45 @@ function initModel() {
 }
 
 function nextAction() {
-    if(initModel())
+    if(initModel()) {
         model.Next();
+        refreshUI();
+    }
 }
 
 function fullAction() {
     if(initModel()) {
         model.DoAllScope();
+        refreshUI();
     }
 }
-
 function refreshUI() {
-
+    if(model != undefined) {
+        //registers
+        var firstReg = document.getElementsByName("firstReg")[0];
+        var secondReg = document.getElementsByName("secondReg")[0];
+        var thirdReg = document.getElementsByName("thirdReg")[0];
+        //symbols
+        var firstSymb = document.getElementsByName("firstSymb")[0];
+        var secondSymb = document.getElementsByName("secondSymb")[0];
+        var thirdSymb = document.getElementsByName("thirdSymb")[0];      
+        //data fields
+        var binaryData = document.getElementsByName("binaryData")[0];
+        var encodeData = document.getElementsByName("encodeData")[0];
+        var decodeData = document.getElementsByName("decodeData")[0];
+        var dataSymb = document.getElementsByName("dataSymb")[0];
+        //registers
+        firstReg.value = model.registerOne.GetBinaryString();
+        secondReg.value = model.registerTwo.GetBinaryString();
+        thirdReg.value = model.registerThree.GetBinaryString();
+        //symbols
+        firstSymb.value = model.registerOne.shiftedBit;
+        secondSymb.value = model.registerTwo.shiftedBit;
+        thirdSymb.value = model.registerThree.shiftedBit;
+        //data fields
+        binaryData.value = model.plainBinaryString;
+        encodeData.value = model.encodedBinaryString;
+        decodeData.value = model.decodedBinaryString;
+        dataSymb.value = model.mergedBit;
+    }
 }
