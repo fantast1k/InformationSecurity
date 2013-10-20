@@ -160,7 +160,7 @@ function CreateRegister(polinom) {
         return ('00000000000000000000000000000000' + obj.value.toString(2)).substr(-32);
     }
 
-    console.log("Shift register created with start value: " + obj.value.toString(16));
+    console.log("Shift register have been created with start value: " + obj.value.toString(16));
     return obj;
 }
 
