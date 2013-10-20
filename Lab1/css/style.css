@@ -1,5 +1,5 @@
 .content{
-    width: 900px;
+    width: 950px;
     margin: 0 auto;
     padding-top: 50px;
 }
@@ -76,4 +76,12 @@
     width: 500px;
     height: 35px;
     margin-top: 5px;
+}
+.arrow-right {
+    width: 0; 
+    height: 0; 
+    border-top: 7px solid transparent;
+    border-bottom: 7px solid transparent;    
+    border-left: 7px solid black;
+    display: inline-block;
 }
