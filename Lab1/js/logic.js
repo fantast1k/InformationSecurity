@@ -183,21 +183,24 @@ function fullAction() {
         refreshUI();
     }
 }
+function $name(name) {
+    return document.getElementsByName(name)[0];
+}
 function refreshUI() {
     if(model != undefined) {
         //registers
-        var firstReg = document.getElementsByName("firstReg")[0];
-        var secondReg = document.getElementsByName("secondReg")[0];
-        var thirdReg = document.getElementsByName("thirdReg")[0];
+        var firstReg = $name('firstReg'),
+            secondReg = $name('secondReg'),
+            thirdReg = $name('thirdReg'),
         //symbols
-        var firstSymb = document.getElementsByName("firstSymb")[0];
-        var secondSymb = document.getElementsByName("secondSymb")[0];
-        var thirdSymb = document.getElementsByName("thirdSymb")[0];      
+            firstSymb = $name('firstSymb'),
+            secondSymb = $name('secondSymb'),
+            thirdSymb = $name('thirdSymb'),
         //data fields
-        var binaryData = document.getElementsByName("binaryData")[0];
-        var encodeData = document.getElementsByName("encodeData")[0];
-        var decodeData = document.getElementsByName("decodeData")[0];
-        var dataSymb = document.getElementsByName("dataSymb")[0];
+            binaryData = $name('binaryData'),
+            encodeData = $name('encodeData'),
+            decodeData = $name('decodeData'),
+            dataSymb = $name('dataSymb');
         //registers
         firstReg.value = model.registerOne.GetBinaryString();
         secondReg.value = model.registerTwo.GetBinaryString();
