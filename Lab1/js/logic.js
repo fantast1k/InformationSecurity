@@ -160,7 +160,7 @@ function main() {
 
 function initModel() {
     var inputData = document.getElementById('inputData').value;
-    if(inputData != undefined && inputData.length > 0) {
+    if(inputData !== undefined && inputData.length > 0) {
         model.Start(inputData);
         return true;
     }
@@ -187,7 +187,7 @@ function $name(name) {
     return document.getElementsByName(name)[0];
 }
 function refreshUI() {
-    if(model != undefined) {
+    if(model !== undefined) {
         //registers
         var firstReg = $name('firstReg'),
             secondReg = $name('secondReg'),
