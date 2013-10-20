@@ -7,30 +7,37 @@
 <body onload="main()">
 	<div class="content">
 		<div class="leftBlock">
-			<label for="firstReg" class="register">First Register</label>
-			<input type="text" name="firstReg" disabled="disabled" />
+			<label for="firstReg" class="register-label">First Register</label>
+			<input type="text" name="firstReg" class="register" disabled="disabled" />
 			<input type="text" name="firstSymb" class="symbol" disabled="disabled"/>
 			<br/>
-			<label for="secondReg" class="register">Second Register</label>
-			<input type="text" name="secondReg" disabled="disabled"/>
+			<label for="secondReg" class="register-label">Second Register</label>
+			<input type="text" name="secondReg" class="register" disabled="disabled"/>
 			<input type="text" name="secondSymb" class="symbol" disabled="disabled"/>
 			<br/>
-			<label for="thirdReg" class="register">Third Register</label>
-			<input type="text" name="thirdReg" disabled="disabled"/>
+			<label for="thirdReg" class="register-label">Third Register</label>
+			<input type="text" name="thirdReg" class="register" disabled="disabled"/>
 			<input type="text" name="thirdSymb" class="symbol" disabled="disabled"/>
 			<br/>
 		</div>
 		<div class="rightBlock">
-			<textarea name="outData" name="dataText" id="dataText" disabled="disabled">f(x) is here?</textarea>
+			<textarea name="outData" name="dataText" id="dataText" disabled="disabled">f(v1, v2, v3) = 
+v1 ^ v2 ^ v3 ^
+^ (v1 & v2) ^
+^ (v1 & v2 & v3)
+</textarea>
 			<input type="text" name="dataSymb" id="dataSymb" value="testik?" />
 		</div>
 		<div class="actionArea">
 			<label for="inputData" class="dataLabel">Input string:</label>
-			<input type="text" name="inputData" />
+			<textarea type="text" name="inputData"></textarea>
 			<button type="button">Next</button>
 			<button type="button">Do all</button>
 		</div>
 		<div class="encodedData">
+			<label for="encodeData" class="dataLabel">Encode data:</label>
+			<input type="text" name="encodeData" disabled="disabled" />
+			<br/>
 			<label for="binaryData" class="dataLabel">Binary data:</label>
 			<input type="text" name="binaryData" disabled="disabled" />
 			<br/>

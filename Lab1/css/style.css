@@ -4,6 +4,9 @@
     padding-top: 50px;
 }
 .register {
+    width: 290px;
+}
+.register-label {
     width: 120px;
     display: inline-block;
 }
@@ -32,7 +35,7 @@
 }
 #dataText {
     float: left;
-    width: 180px;
+    width: 130px;
     height: 120px;
     resize: none;
     color: #000;
@@ -43,9 +46,16 @@
     display: block;
 }
 .actionArea {
-    clear:both;
-    margin-top: 100px;
-    margin-left: 50px;
+    clear: both;
+    margin-top: 50px;
+    margin-right: 105px;
+    float: right;
+}
+.actionArea > textarea {
+    display: block;
+    width: 250px;
+    height: 100px;
+    resize: none;
 }
 .dataLabel {
     width: 120px;
@@ -53,4 +63,10 @@
 }
 .encodedData {
     margin-left: 50px;
+    float: left;
+}
+.encodedData > input {
+    width: 290px;
+    height: 35px;
+    margin-top: 5px;
 }
