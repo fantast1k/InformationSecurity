@@ -1,10 +1,3 @@
-/**
- * Created with JetBrains WebStorm.
- * User: fantastik
- * Date: 10/19/13
- * Time: 8:03 PM
- * To change this template use File | Settings | File Templates.
- */
 
 var model;
 
@@ -176,4 +169,38 @@ function main() {
     for (var i = 0, end = 'hello'.length*2*16; i < end; i++) {
         model.Next();
     }
+}
+
+function initModel() {
+    if(model == undefined || model == null) {
+        model = CreateModel();
+
+        var inputData = document.getElementById('inputData').value;
+        if(inputData != undefined && inputData.length > 0) {
+            model.Start(inputData);
+            return true;
+        }
+        else {
+            model = null;
+            alert('Please enter input string');
+            return false;
+        }
+    } else 
+        return true;
+}
+
+function nextAction() {
+    if(initModel())
+        model.Next();
+}
+
+function fullAction() {
+    if(initModel()) {
+        model.DoAllScope();
+        model = null; // i don't know, we need or not destroy model every time, when we want to reset our data. Plz fix it, if we don't
+    }
+}
+
+function refreshUI() {
+
 }
