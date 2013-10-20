@@ -1,4 +1,0 @@
-InformationSecurity
-===================
-
-Information Security
