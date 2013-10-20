@@ -1,11 +1,46 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <script src="js/helper.js" type="text/javascript"></script>
-    <script src="js/logic.js" type="text/javascript"></script>
     <title>Information security :: Lab 2.1</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 <body onload="main()">
-
+	<div class="content">
+		<div class="leftBlock">
+			<label for="firstReg" class="register">First Register</label>
+			<input type="text" name="firstReg" disabled="disabled" />
+			<input type="text" name="firstSymb" class="symbol" disabled="disabled"/>
+			<br/>
+			<label for="secondReg" class="register">Second Register</label>
+			<input type="text" name="secondReg" disabled="disabled"/>
+			<input type="text" name="secondSymb" class="symbol" disabled="disabled"/>
+			<br/>
+			<label for="thirdReg" class="register">Third Register</label>
+			<input type="text" name="thirdReg" disabled="disabled"/>
+			<input type="text" name="thirdSymb" class="symbol" disabled="disabled"/>
+			<br/>
+		</div>
+		<div class="rightBlock">
+			<label for="dataText" >Some text</label>
+			<textarea name="outData" name="dataText" id="dataText" disabled="disabled"></textarea>
+			<input type="text" name="dataSymb" id="dataSymb">
+		</div>
+		<div class="actionArea">
+			<label for="inputData" class="dataLabel">Input string:</label>
+			<input type="text" name="inputData" />
+			<button type="button">Next</button>
+			<button type="button">Do all</button>
+		</div>
+		<div class="encodedData">
+			<label for="binaryData" class="dataLabel">Binary data:</label>
+			<input type="text" name="binaryData" disabled="disabled" />
+			<br/>
+			<label for="someData" class="dataLabel">Some data:</label>
+			<input type="text" name="someData" disabled="disabled" />
+			<input type="text" name="someData2" disabled="disabled" />
+		</div>
+	</div>
+    <script src="js/helper.js" type="text/javascript"></script>
+    <script src="js/logic.js" type="text/javascript"></script>
 </body>
 </html>

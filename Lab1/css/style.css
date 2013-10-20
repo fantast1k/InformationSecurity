@@ -1,0 +1,49 @@
+.content{
+    width: 900px;
+    margin: 0 auto;
+    padding-top: 50px;
+}
+.register {
+    width: 120px;
+    display: inline-block;
+}
+.symbol {
+    width: 20px;
+}
+.rightBlock {
+    float: right;
+    width: 40%;
+}
+.leftBlock {
+    float: left;
+    width: 50%;
+    margin-left: 50px;
+    margin-top: 30px;
+}
+#dataSymb {
+    float: right;
+    margin-top: 50px;
+    width: 60px;
+    margin-right: 80px;
+}
+#dataText {
+    float: left;
+    width: 180px;
+    height: 120px;
+    resize: none;
+}
+.rightBlock > label {
+    display: block;
+}
+.actionArea {
+    clear:both;
+    margin-top: 100px;
+    margin-left: 50px;
+}
+.dataLabel {
+    width: 120px;
+    display: inline-block;
+}
+.encodedData {
+    margin-left: 50px;
+}
