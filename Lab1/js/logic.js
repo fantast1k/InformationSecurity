@@ -159,34 +159,22 @@ function CreateRegister(polinom) {
 
 function main() {
     model = CreateModel();
-
-    // All scope usage
-    model.Start('hello');
-    model.DoAllScope();
-
-    // Step by step usage
-    model.Start('hello');
-    for (var i = 0, end = 'hello'.length*2*16; i < end; i++) {
-        model.Next();
-    }
 }
 
 function initModel() {
     if(model == undefined || model == null) {
         model = CreateModel();
-
-        var inputData = document.getElementById('inputData').value;
-        if(inputData != undefined && inputData.length > 0) {
-            model.Start(inputData);
-            return true;
-        }
-        else {
-            model = null;
-            alert('Please enter input string');
-            return false;
-        }
-    } else 
+    }
+    var inputData = document.getElementById('inputData').value;
+    if(inputData != undefined && inputData.length > 0) {
+        model.Start(inputData);
         return true;
+    }
+    else {
+        model = null;
+        alert('Please enter input string');
+        return false;
+    }
 }
 
 function nextAction() {
