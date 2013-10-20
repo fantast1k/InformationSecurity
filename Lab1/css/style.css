@@ -72,12 +72,13 @@
     margin-left: 50px;
     float: left;
 }
-.encodedData > input {
+.data-row > input {
     width: 500px;
     height: 35px;
     margin-top: 5px;
 }
-.arrow-right {
+.register-row:after {
+    content: '';
     width: 0; 
     height: 0; 
     border-top: 7px solid transparent;
