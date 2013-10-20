@@ -162,16 +162,12 @@ function main() {
 }
 
 function initModel() {
-    if(model == undefined || model == null) {
-        model = CreateModel();
-    }
     var inputData = document.getElementById('inputData').value;
     if(inputData != undefined && inputData.length > 0) {
         model.Start(inputData);
         return true;
     }
     else {
-        model = null;
         alert('Please enter input string');
         return false;
     }
@@ -185,7 +181,6 @@ function nextAction() {
 function fullAction() {
     if(initModel()) {
         model.DoAllScope();
-        model = null; // i don't know, we need or not destroy model every time, when we want to reset our data. Plz fix it, if we don't
     }
 }
 
