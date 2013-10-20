@@ -53,3 +53,12 @@ function DataToString(data) {
     }
     return str;
 }
+
+function DataToBinaryString(data) {
+    var str = '';
+    for (var i = 0, l = data.length; i < l; i++) {
+        var hex = ('0000000000000000' + data[i].toString(2)).substr(-16);
+        str = str + hex + ' ';
+    }
+    return str;
+}
