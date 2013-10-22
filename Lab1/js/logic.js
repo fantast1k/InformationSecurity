@@ -76,6 +76,10 @@ function CreateModel() {
         else {
             this.__doDecodeNext();
         }
+
+        if (this.__checkTheEnd()) {
+            this.inProgress = false;
+        }
     }
 
     this.__checkTheEnd = function() {
@@ -123,7 +127,7 @@ function CreateModel() {
     this.__shuffle = function() {
         var v1 = this.registerOne.Next();
         var v2 = this.registerTwo.Next();
-        var v3 = this.registerTwo.Next();
+        var v3 = this.registerThree.Next();
 
         this.mergedBit = ((v1 ^ v2 ^ v3 ^ (v1 & v2) ^ (v1 & v2 & v3)) & 0x1) >>> 0;
     }
@@ -171,17 +175,21 @@ function initModel() {
 }
 
 function nextAction() {
-    if(initModel()) {
-        model.Next();
-        refreshUI();
+    if(!model.inProgress) {
+        initModel()
     }
+
+    model.Next();
+    refreshUI();
 }
 
 function fullAction() {
-    if(initModel()) {
-        model.DoAllScope();
-        refreshUI();
+    if(!model.inProgress) {
+        initModel()
     }
+
+    model.DoAllScope();
+    refreshUI();
 }
 function $name(name) {
     return document.getElementsByName(name)[0];
