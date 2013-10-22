@@ -155,7 +155,7 @@ function CreateRegister(polinom) {
 }
 
 function main() {
-    model = CreateModel();
+    model = new CreateModel();
 }
 
 function initModel() {
