@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>Information security :: Lab 2.1</title>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 <body onload="main()">
@@ -9,18 +10,18 @@
 		<div class="leftBlock">
 			<div class="register-row">
 				<label for="firstReg" class="register-label">First Register</label>
-				<input type="text" name="firstReg" class="register" disabled="disabled" />
-				<input type="text" name="firstSymb" class="symbol" disabled="disabled"/>
+				<input type="text" name="firstReg" class="form-control register" disabled="disabled" />
+				<input type="text" name="firstSymb" class="form-control symbol" disabled="disabled"/>
 			</div>
 			<div class="register-row">
 				<label for="secondReg" class="register-label">Second Register</label>
-				<input type="text" name="secondReg" class="register" disabled="disabled"/>
-				<input type="text" name="secondSymb" class="symbol" disabled="disabled"/>
+				<input type="text" name="secondReg" class="form-control register" disabled="disabled"/>
+				<input type="text" name="secondSymb" class="form-control symbol" disabled="disabled"/>
 			</div>
 			<div class="register-row">
 				<label for="thirdReg" class="register-label">Third Register</label>
-				<input type="text" name="thirdReg" class="register" disabled="disabled"/>
-				<input type="text" name="thirdSymb" class="symbol" disabled="disabled"/>
+				<input type="text" name="thirdReg" class="form-control register" disabled="disabled"/>
+				<input type="text" name="thirdSymb" class="form-control symbol" disabled="disabled"/>
 			</div>
 		</div>
 		<div class="rightBlock">
@@ -33,22 +34,22 @@ v1 ^ v2 ^ v3 ^
 		</div>
 		<div class="actionArea">
 			<label for="inputData" class="dataLabel">Input string:</label>
-			<textarea type="text" name="inputData" id="inputData"></textarea>
-			<button type="button" onclick="nextAction()">Next</button>
-			<button type="button" onclick="fullAction()">Do all</button>
+			<textarea type="text" name="inputData" class="form-control" id="inputData"></textarea>
+			<button type="button" class="btn btn-default" onclick="nextAction()">Next</button>
+			<button type="button" class="btn btn-default" onclick="fullAction()">Do all</button>
 		</div>
 		<div class="encodedData">
 			<div class="data-row">
 				<label for="binaryData" class="dataLabel">Binary data:</label>
-				<textarea wrap="off" name="binaryData" disabled="disabled" ></textarea>
+				<textarea wrap="off" name="binaryData" class="form-control" disabled="disabled" ></textarea>
 			</div>
 			<div class="data-row">
 				<label for="encodeData" class="dataLabel">Encode data:</label>
-				<textarea wrap="off" name="encodeData" disabled="disabled"></textarea>
+				<textarea wrap="off" name="encodeData" class="form-control" disabled="disabled"></textarea>
 			</div>
 			<div class="data-row">
 				<label for="decodeData" class="dataLabel">Decode data:</label>
-				<textarea wrap="off" name="decodeData" disabled="disabled" ></textarea>
+				<textarea wrap="off" name="decodeData" class="form-control" disabled="disabled" ></textarea>
 			</div>
 		</div>
 	</div>
