@@ -72,10 +72,11 @@
     margin-left: 50px;
     float: left;
 }
-.data-row > input {
+.encodedData textarea {
     width: 500px;
     height: 35px;
-    margin-top: 5px;
+    margin-top: 15px;
+    resize: none;
 }
 .register-row:after {
     content: '';
