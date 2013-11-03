@@ -179,6 +179,7 @@ function nextAction() {
         initModel()
     }
 
+    document.getElementsByName("inputData")[0].disabled=true;
     model.Next();
     refreshUI();
 }
@@ -188,6 +189,7 @@ function fullAction() {
         initModel()
     }
 
+    document.getElementsByName("inputData")[0].disabled=false;
     model.DoAllScope();
     refreshUI();
 }
