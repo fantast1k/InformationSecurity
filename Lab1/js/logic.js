@@ -1,13 +1,14 @@
 var model;
 
 function CreateModel() {
-    this.registerOne = new CreateRegister([7,5,3,2,1,0]);
-    this.registerTwo = new CreateRegister([7,5,3,2,1,0]);
-    this.registerThree = new CreateRegister([7,5,3,2,1,0]);
+    this.registerOne = new CreateRegister([13,4,3,1,0], 32);
+    this.registerTwo = new CreateRegister([24,4,3,1,0], 30);
+    this.registerThree = new CreateRegister([25,3,0], 28);
 
     this.mergedBit = 0;
     this.inProgress = false;
     this.string = '';
+    this.chipherKey = '';
 
     this.encodedData = new Array();
     this.decodedData = new Array();
@@ -35,6 +36,16 @@ function CreateModel() {
         }
     }
 
+    this.AppendNextBitForChipher = function() {
+        if (this.__isChipherKeyValid() == false) {
+            this.__appendNextBitToChipherKey();
+        }
+    }
+
+    this.IsChipherKeyReadyToUse = function() {
+        return this.__isChipherKeyValid();
+    }
+
     this.__prepare = function() {
         this.encodedData.length = 0;
         this.decodedData.length = 0;
@@ -45,18 +56,28 @@ function CreateModel() {
         this.stringData = StringToData(this.string);
         this.plainBinaryString = DataToBinaryString(this.stringData);
 
+        while(this.__isChipherKeyValid() == false) {
+            this.__appendNextBitToChipherKey();
+        }
+
         this.__prepare_tmp();
     }
 
     this.__prepare_tmp = function() {
-        this.__regCopyOne = clone(this.registerOne);
-        this.__regCopyTwo = clone(this.registerTwo);
-        this.__regCopyThree = clone(this.registerThree);
-
         this.__encodingLeftSymb = 0;
         this.__decodingLeftSymb = 0;
 
         this.__bitNomInSymbol = 15;
+        this.__chipherCursor = 0;
+    }
+
+    this.__isChipherKeyValid = function() {
+        return this.chipherKey.length == 50;
+    }
+
+    this.__appendNextBitToChipherKey = function() {
+        this.__shuffle();
+        this.chipherKey += this.mergedBit.toString(2);
     }
 
     this.__next = function() {
@@ -65,12 +86,11 @@ function CreateModel() {
             return;
         }
 
-        this.__shuffle();
         if (this.__encodingLeftSymb < this.stringData.length) {
             this.__doEncodeNext();
 
             if (this.__encodingLeftSymb == this.stringData.length) {
-                this.__swapRegisters();
+                this.__chipherCursor = 0;
             }
         }
         else {
@@ -88,7 +108,7 @@ function CreateModel() {
 
     this.__doEncodeNext = function() {
         var short = this.encodedData[this.__encodingLeftSymb] ^ (this.stringData[this.__encodingLeftSymb] & (0x1 << this.__bitNomInSymbol));
-        short ^= (this.mergedBit << this.__bitNomInSymbol);
+        short ^= (this.__getChipherBitByCursor() << this.__bitNomInSymbol);
         this.encodedData[this.__encodingLeftSymb] = short;
 
         this.encodedBinaryString += ((short >>> this.__bitNomInSymbol) & 0x1).toString(2);
@@ -104,7 +124,7 @@ function CreateModel() {
 
     this.__doDecodeNext = function() {
         var short = this.decodedData[this.__decodingLeftSymb] ^ (this.encodedData[this.__decodingLeftSymb] & (0x1 << this.__bitNomInSymbol));
-        short ^= (this.mergedBit << this.__bitNomInSymbol);
+        short ^= (this.__getChipherBitByCursor() << this.__bitNomInSymbol);
         this.decodedData[this.__decodingLeftSymb] = short;
 
         this.decodedBinaryString += ((short >>> this.__bitNomInSymbol) & 0x1).toString(2);
@@ -118,10 +138,10 @@ function CreateModel() {
         }
     }
 
-    this.__swapRegisters = function() {
-        this.registerOne = this.__regCopyOne;
-        this.registerTwo = this.__regCopyTwo;
-        this.registerThree = this.__regCopyThree;
+    this.__getChipherBitByCursor = function() {
+        var bit = this.chipherKey[this.__chipherCursor];
+        this.__chipherCursor = ( ++this.__chipherCursor) % this.chipherKey.length;
+        return bit;
     }
 
     this.__shuffle = function() {
@@ -135,23 +155,23 @@ function CreateModel() {
     return this;
 }
 
-function CreateRegister(polinom) {
-    this.value = Math.round(Math.random() * ((~0x0)>>>0));
-    this.polinom = polinom;
+function CreateRegister(pol, capacity) {
+    this.value = Math.round(Math.random() * (parseInt(Array(capacity).join('1'), 2)));
+    this.polinom = pol;
     this.shiftedBit = 0;
 
     this.Next = function() {
         var shiftBit = 0x0;
-        for (var i = 0; i < polinom.length; i++) {
-            shiftBit ^= (this.value >> polinom[i]);
+        for (var i = 0; i < this.polinom.length; i++) {
+            shiftBit ^= (this.value >> this.polinom[i]);
             shiftBit >>>= 0;
         }
-        this.value = ((((shiftBit & 0x1) << 31) >>> 0) | (this.value >>> 1)) >>> 0;
+        this.value = ((((shiftBit & 0x1) << capacity - 1) >>> 0) | (this.value >>> 1)) >>> 0;
         this.shiftedBit = this.value & 0x1;
         return this.shiftedBit;
     }
     this.GetBinaryString = function() {
-        return ('00000000000000000000000000000000' + this.value.toString(2)).substr(-32);
+        return (Array(capacity).join("0") + this.value.toString(2)).substr(-capacity);
     }
 
     console.log("Shift register have been created with start value: " + this.value.toString(16));
@@ -193,6 +213,7 @@ function fullAction() {
     model.DoAllScope();
     refreshUI();
 }
+
 function $name(name) {
     return document.getElementsByName(name)[0];
 }
