@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Information security :: Lab 3</title>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+<body>
+	<div class="content">
+		<div class="keyArea">
+			<label for="keyData">Data for keys:</label>
+			<input type="text" name="keyData" class="form-control"/>
+			<label for="bitLength" class="bitLengthLabel">Bit length:</label>
+			<select name="bitLength" id="bitLength" class="form-control">
+				<option value="512">515</option>
+				<option value="1024">1024</option>
+				<option value="2048">2048</option>
+				<option value="4096">4096</option>
+				<option value="8192">8192</option>
+			</select>
+			<p>
+				<button name="keysGeneration" class="btn btn-info" onclick="generateKey()">Generate Keys</button>
+				<button name="saveKeys" class="btn btn-info" onclick="saveKeys()">Save keys</button>
+			</p>
+		</div>
+		<div class="displayKey">
+			<label for="publicKey">Public key:</label>
+			<textarea name="publicKey" class="form-control" disabled="disabled"></textarea>
+		</div>
+		<div class="encryptionArea">
+			<p>
+				<label for="encryptData">Encryption data:</label>
+				<textarea name="encryptData" class="form-control" ></textarea>
+			</p>
+			<label for="decryptData">Decryption data:</label>
+			<textarea name="decryptData" class="form-control"></textarea>
+			<p class="actionButtons">
+				<button name="encryptAction" class="btn btn-primary" onclick="encrypt()">Encrypt</button>
+				<button name="decryptAction" class="btn btn-primary" onclick="decrypt()">Decrypt</button>
+				<button name="saveMessage" class="btn btn-primary" onclick="saveMessage()">Save Message</button>
+			</p>	
+		</div>
+		<div class="resultArea">
+			<label for="encryptedMessage">Encrypted msg:</label>
+			<textarea name="encryptedMessage" class="form-control" disabled="disabled"></textarea>
+			<p>
+				<label for="decryptedMessage">Decrypted msg:</label>
+				<textarea name="decryptedMessage" class="form-control" disabled="disabled"></textarea>
+			</p>
+		</div>
+	</div>
+    <script src="js/cryptico.min.js" type="text/javascript"></script>
+    <script src="js/helper.js" type="text/javascript"></script>
+    <script src="js/logic.js" type="text/javascript"></script>
+</body>
+</html>
