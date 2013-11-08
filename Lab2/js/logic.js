@@ -1,126 +1,228 @@
-var privateKey, publicKey, encryptionResult;
+var model;
 
+function CreateModel() {
+    this.registerOne = new CreateRegister([7,5,3,2,1,0]);
+    this.registerTwo = new CreateRegister([7,5,3,2,1,0]);
+    this.registerThree = new CreateRegister([7,5,3,2,1,0]);
+
+    this.mergedBit = 0;
+    this.inProgress = false;
+    this.string = '';
+
+    this.encodedData = new Array();
+    this.decodedData = new Array();
+    this.stringData = new Array();
+
+    this.encodedBinaryString = '';
+    this.decodedBinaryString = '';
+    this.plainBinaryString = '';
+
+    this.Start = function(str) {
+        this.string = str;
+        this.inProgress = true;
+        this.__prepare();
+    }
+
+    this.Next = function() {
+        if (this.inProgress) {
+            this.__next();
+        }
+    }
+
+    this.DoAllScope = function() {
+        while(this.inProgress) {
+            this.Next();
+        }
+    }
+
+    this.__prepare = function() {
+        this.encodedData.length = 0;
+        this.decodedData.length = 0;
+
+        this.encodedBinaryString = '';
+        this.decodedBinaryString = '';
+
+        this.stringData = StringToData(this.string);
+        this.plainBinaryString = DataToBinaryString(this.stringData);
+
+        this.__prepare_tmp();
+    }
+
+    this.__prepare_tmp = function() {
+        this.__regCopyOne = clone(this.registerOne);
+        this.__regCopyTwo = clone(this.registerTwo);
+        this.__regCopyThree = clone(this.registerThree);
+
+        this.__encodingLeftSymb = 0;
+        this.__decodingLeftSymb = 0;
+
+        this.__bitNomInSymbol = 15;
+    }
+
+    this.__next = function() {
+        if (this.__checkTheEnd()) {
+            this.inProgress = false;
+            return;
+        }
+
+        this.__shuffle();
+        if (this.__encodingLeftSymb < this.stringData.length) {
+            this.__doEncodeNext();
+
+            if (this.__encodingLeftSymb == this.stringData.length) {
+                this.__swapRegisters();
+            }
+        }
+        else {
+            this.__doDecodeNext();
+        }
+
+        if (this.__checkTheEnd()) {
+            this.inProgress = false;
+        }
+    }
+
+    this.__checkTheEnd = function() {
+        return this.__encodingLeftSymb === this.stringData.length && this.__decodingLeftSymb === this.stringData.length;
+    }
+
+    this.__doEncodeNext = function() {
+        var short = this.encodedData[this.__encodingLeftSymb] ^ (this.stringData[this.__encodingLeftSymb] & (0x1 << this.__bitNomInSymbol));
+        short ^= (this.mergedBit << this.__bitNomInSymbol);
+        this.encodedData[this.__encodingLeftSymb] = short;
+
+        this.encodedBinaryString += ((short >>> this.__bitNomInSymbol) & 0x1).toString(2);
+
+        this.__bitNomInSymbol--;
+        if (this.__bitNomInSymbol < 0) {
+            this.__bitNomInSymbol = 15;
+            this.__encodingLeftSymb++;
+
+            this.encodedBinaryString += ' ';
+        }
+    }
+
+    this.__doDecodeNext = function() {
+        var short = this.decodedData[this.__decodingLeftSymb] ^ (this.encodedData[this.__decodingLeftSymb] & (0x1 << this.__bitNomInSymbol));
+        short ^= (this.mergedBit << this.__bitNomInSymbol);
+        this.decodedData[this.__decodingLeftSymb] = short;
+
+        this.decodedBinaryString += ((short >>> this.__bitNomInSymbol) & 0x1).toString(2);
+
+        this.__bitNomInSymbol--;
+        if (this.__bitNomInSymbol < 0) {
+            this.__bitNomInSymbol = 15;
+            this.__decodingLeftSymb++;
+
+            this.decodedBinaryString += ' ';
+        }
+    }
+
+    this.__swapRegisters = function() {
+        this.registerOne = this.__regCopyOne;
+        this.registerTwo = this.__regCopyTwo;
+        this.registerThree = this.__regCopyThree;
+    }
+
+    this.__shuffle = function() {
+        var v1 = this.registerOne.Next();
+        var v2 = this.registerTwo.Next();
+        var v3 = this.registerThree.Next();
+
+        this.mergedBit = ((v1 ^ v2 ^ v3 ^ (v1 & v2) ^ (v1 & v2 & v3)) & 0x1) >>> 0;
+    }
+
+    return this;
+}
+
+function CreateRegister(polinom) {
+    this.value = Math.round(Math.random() * ((~0x0)>>>0));
+    this.polinom = polinom;
+    this.shiftedBit = 0;
+
+    this.Next = function() {
+        var shiftBit = 0x0;
+        for (var i = 0; i < polinom.length; i++) {
+            shiftBit ^= (this.value >> polinom[i]);
+            shiftBit >>>= 0;
+        }
+        this.value = ((((shiftBit & 0x1) << 31) >>> 0) | (this.value >>> 1)) >>> 0;
+        this.shiftedBit = this.value & 0x1;
+        return this.shiftedBit;
+    }
+    this.GetBinaryString = function() {
+        return ('00000000000000000000000000000000' + this.value.toString(2)).substr(-32);
+    }
+
+    console.log("Shift register have been created with start value: " + this.value.toString(16));
+    return this;
+}
+
+function main() {
+    model = new CreateModel();
+}
+
+function initModel() {
+    var inputData = document.getElementById('inputData').value;
+    if(inputData !== undefined && inputData.length > 0) {
+        model.Start(inputData);
+        return true;
+    }
+    else {
+        alert('Please enter input string');
+        return false;
+    }
+}
+
+function nextAction() {
+    if(!model.inProgress) {
+        initModel()
+    }
+
+    document.getElementsByName("inputData")[0].disabled=true;
+    model.Next();
+    refreshUI();
+}
+
+function fullAction() {
+    if(!model.inProgress) {
+        initModel()
+    }
+
+    document.getElementsByName("inputData")[0].disabled=false;
+    model.DoAllScope();
+    refreshUI();
+}
 function $name(name) {
     return document.getElementsByName(name)[0];
 }
-
-function generateKey() {
-    var keyData = $name('keyData').value;
-    var bitLength = $name('bitLength').value;
-    if(keyData.length > 0){
-        privateKey = cryptico.generateRSAKey(keyData, bitLength);
-        publicKey = cryptico.publicKeyString(privateKey);
-        $name('publicKey').value = publicKey;
-    } else {
-        alert('Please enter key data and bit length!');
+function refreshUI() {
+    if(model !== undefined) {
+        //registers
+        var firstReg = $name('firstReg'),
+            secondReg = $name('secondReg'),
+            thirdReg = $name('thirdReg'),
+        //symbols
+            firstSymb = $name('firstSymb'),
+            secondSymb = $name('secondSymb'),
+            thirdSymb = $name('thirdSymb'),
+        //data fields
+            binaryData = $name('binaryData'),
+            encodeData = $name('encodeData'),
+            decodeData = $name('decodeData'),
+            dataSymb = $name('dataSymb');
+        //registers
+        firstReg.value = model.registerOne.GetBinaryString();
+        secondReg.value = model.registerTwo.GetBinaryString();
+        thirdReg.value = model.registerThree.GetBinaryString();
+        //symbols
+        firstSymb.value = model.registerOne.shiftedBit;
+        secondSymb.value = model.registerTwo.shiftedBit;
+        thirdSymb.value = model.registerThree.shiftedBit;
+        //data fields
+        binaryData.value = model.plainBinaryString;
+        encodeData.value = model.encodedBinaryString;
+        decodeData.value = model.decodedBinaryString;
+        dataSymb.value = model.mergedBit;
     }
-}
-
-function encrypt() {
-    if(publicKey == undefined) {
-        alert('Please generate keys!');
-        return;
-    }
-    var encryptData = $name('encryptData').value;
-    encryptionResult = cryptico.encrypt(encryptData, publicKey);
-    $name('encryptedMessage').value = encryptionResult.cipher;
-}
-
-function decrypt() {
-    if(privateKey == undefined) {
-        alert('Please generate keys!');
-        return;
-    }
-    var decryptData = $name('decryptData').value;
-    var decryptionResult = cryptico.decrypt(decryptData, privateKey);
-    $name('decryptedMessage').value = decryptionResult.plaintext;
-}
-
-function saveKeys() {
-    if (!showSave) {
-        alert("Your browser does not support any method of saving JavaScript gnerated data to files.");
-        return;
-    }
-    showSave(publicKey, 'Keys', 'text/plain; charset=UTF-8');
-}
-
-function saveMessage() {
-    if (!showSave) {
-        alert("Your browser does not support any method of saving JavaScript gnerated data to files.");
-        return;
-    }
-    showSave(encryptionResult, 'Message', 'text/plain; charset=UTF-8');
-}
-
-var DownloadAttributeSupport = 'download' in document.createElement('a');
-// Use any available BlobBuilder/URL implementation:
-var BlobBuilder = window.BlobBuilder || window.WebKitBlobBuilder || window.MozBlobBuilder || window.MSBlobBuilder;
-var URL = window.URL || window.webkitURL || window.mozURL || window.msURL;
-
-// IE 10 has a handy navigator.msSaveBlob method. Maybe other browsers will emulate that interface?
-navigator.saveBlob = navigator.saveBlob || navigator.msSaveBlob || navigator.mozSaveBlob || navigator.webkitSaveBlob;
-
-window.saveAs = window.saveAs || window.webkitSaveAs || window.mozSaveAs || window.msSaveAs;
-
-var BrowserSupportedMimeTypes = {
-    "text/plain": true,
-    "text/html": true,
-    "text/xml": true,
-    "application/xhtml+xml": true,
-    "application/json": true
-};
-
-// Blobs and saveAs (or saveBlob):
-if (BlobBuilder && (window.saveAs || navigator.saveBlob)) {
-    showSave = function (data, name, mimeType) {
-        var builder = new BlobBuilder();
-        builder.append(data);
-        var blob = builder.getBlob(mimetype||"application/octet-stream");
-        if (!name) name = "Download.bin";
-
-        if (window.saveAs) {
-            window.saveAs(blob, name);
-        }
-        else {
-            navigator.saveBlob(blob, name);
-        }
-    };
-} else if (BlobBuilder && URL) {
-    // Currently WebKit and Gecko support BlobBuilder and object URLs.
-    showSave = function (data, name, mimetype) {
-        var blob, url, builder = new BlobBuilder();
-        builder.append(data);
-        if (!mimetype) mimetype = "text/plain; charset=UTF-8";
-        if (DownloadAttributeSupport) {
-            blob = builder.getBlob(mimetype);
-            url = URL.createObjectURL(blob);
-            var link = document.createElement("a");
-            link.setAttribute("href",url);
-            link.setAttribute("download",name||"Download.bin");
-            var event = document.createEvent('MouseEvents');
-            event.initMouseEvent('click', true, true, window, 1, 0, 0, 0, 0, false, false, false, false, 0, null);
-            link.dispatchEvent(event);
-        }
-        else {
-            if (BrowserSupportedMimeTypes[mimetype.split(";")[0]] === true) {
-                mimetype = "application/octet-stream";
-            }
-
-            blob = builder.getBlob(mimetype);
-            url = URL.createObjectURL(blob);
-            window.open(url, '_blank', '');
-        }
-        setTimeout(function () {
-            URL.revokeObjectURL(url);
-        }, 250);
-    };
-}
-else if (!/\bMSIE\b/.test(navigator.userAgent)) {
-    showSave = function (data, name, mimetype) {
-        if (!mimetype) mimetype = "application/octet-stream";
-        if (BrowserSupportedMimeTypes[mimetype.split(";")[0]] === true) {
-            mimetype = "application/octet-stream";
-        }
-        window.open("data:"+mimetype+","+encodeURIComponent(data), '_blank', '');
-    };
 }
