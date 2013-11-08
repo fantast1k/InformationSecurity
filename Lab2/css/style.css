@@ -1,0 +1,45 @@
+.content{
+    width: 1150px;
+    margin: 0 auto;
+    padding-top: 50px;
+}
+.form-control {
+    display: inline-block;
+}
+p {
+    margin-top: 10px;
+}
+label {
+    width: 10%;
+}
+.keyArea input {
+    width: 40%;
+}
+.keyArea p {
+    margin-left: 120px;
+}
+.bitLengthLabel {
+    margin-left: 20px;
+    width: 7%;
+
+}
+#bitLength {
+    width: 10%;
+}
+.displayKey textarea {
+    width: 40%;
+}
+.encryptionArea textarea {
+    width: 70%;
+}
+.actionButtons {
+    margin-left: 120px;
+}
+.actionButtons button {
+    margin-right: 10px;
+}
+.resultArea textarea { 
+    width: 80%;
+    height: 100px;
+    resize: none;
+}
