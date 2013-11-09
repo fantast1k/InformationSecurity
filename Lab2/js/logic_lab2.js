@@ -5,7 +5,7 @@ function CreateModel_lab2() {
     this.polinom = '';
     this.register = undefined;
     this.gamma = '';
-    this.input = ''
+    this.input = '';
 
     this.Start = function(input) {
         this.input = input;
@@ -118,8 +118,7 @@ function test2() {
 }
 
 function initModel_lab2() {
-    // TODO: bind UI element here for binary input string
-    var inputData = document.getElementById(''/* STUFF HERE */).value;
+    var inputData = $name('inputData-lab2').value;
     if(inputData !== undefined && inputData.length > 0 && validateInputString(inputData)) {
         model_lab2.Start(RemoveSpacesInString(inputData));
         return true;
@@ -132,20 +131,35 @@ function initModel_lab2() {
 
 var validateInputString = (function createValidator() {
     var regexp = new RegExp('^[0,1,\\s]+$');
-    return function(str) {
-        return regexp.text(str);
-    }
+        return function(str) {
+            return regexp.test(str);
+        }
 })();
 
 function start_lab2() {
-
+    initModel_lab2();
+    refreshUI_lab2();
+    $name("start-lab2").disabled = true;
+    $name("next-lab2").disabled = false;
 }
 
 function next_lab2() {
-
+    model_lab2.Next();
+    refreshUI_lab2();
+    $name("start-lab2").disabled = true;
 }
 
-function resfreshUI_lab2() {
+function refreshUI_lab2() {
+    if(model_lab2 != undefined) {
+        var startRegState = $name('startRegState'),
+            polynomState = $name('polynomState'),
+            outputData = $name('outputData'),
+            shiftedBit = $name('shiftedBit');
 
+        startRegState.value = model_lab2.register.GetBinaryString();
+        polynomState.value = model_lab2.polinom;
+        outputData.value = model_lab2.gamma;
+        shiftedBit.value = model_lab2.register.shiftedBit.toString();
+    }
 }
 

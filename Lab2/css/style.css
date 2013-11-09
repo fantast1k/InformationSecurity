@@ -107,6 +107,9 @@
 .labelClass {
     width: 120px;
 }
+.start-register input.shiftedBit {
+    width: 3%;
+}
 .inputArea textarea {
     width: 40%;
 }
@@ -124,4 +127,5 @@
 }
 .output-register textarea {
     width: 60%;
+    resize: none;
 }
