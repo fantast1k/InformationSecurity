@@ -1,55 +1,58 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Information security :: Lab 3</title>
+    <title>Information security :: Lab 2.1</title>
     <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
-<body>
+<body onload="main()">
 	<div class="content">
-		<div class="keyArea">
-			<label for="keyData">Data for keys:</label>
-			<input type="text" name="keyData" class="form-control"/>
-			<label for="bitLength" class="bitLengthLabel">Bit length:</label>
-			<select name="bitLength" id="bitLength" class="form-control">
-				<option value="512">515</option>
-				<option value="1024">1024</option>
-				<option value="2048">2048</option>
-				<option value="4096">4096</option>
-				<option value="8192">8192</option>
-			</select>
-			<p>
-				<button name="keysGeneration" class="btn btn-info" onclick="generateKey()">Generate Keys</button>
-				<button name="saveKeys" class="btn btn-info" onclick="saveKeys()">Save keys</button>
-			</p>
+		<div class="leftBlock">
+			<div class="register-row">
+				<label for="firstReg" class="register-label">First Register</label>
+				<input type="text" name="firstReg" class="form-control register" disabled="disabled" />
+				<input type="text" name="firstSymb" class="form-control symbol" disabled="disabled"/>
+			</div>
+			<div class="register-row">
+				<label for="secondReg" class="register-label">Second Register</label>
+				<input type="text" name="secondReg" class="form-control register" disabled="disabled"/>
+				<input type="text" name="secondSymb" class="form-control symbol" disabled="disabled"/>
+			</div>
+			<div class="register-row">
+				<label for="thirdReg" class="register-label">Third Register</label>
+				<input type="text" name="thirdReg" class="form-control register" disabled="disabled"/>
+				<input type="text" name="thirdSymb" class="form-control symbol" disabled="disabled"/>
+			</div>
 		</div>
-		<div class="displayKey">
-			<label for="publicKey">Public key:</label>
-			<textarea name="publicKey" class="form-control" disabled="disabled"></textarea>
+		<div class="rightBlock">
+			<textarea name="outData" name="dataText" id="dataText" disabled="disabled">f(v1, v2, v3) = 
+v1 ^ v2 ^ v3 ^
+^ (v1 & v2) ^
+^ (v1 & v2 & v3)
+</textarea>
+			<input type="text" name="dataSymb" id="dataSymb" disabled="disable" />
 		</div>
-		<div class="encryptionArea">
-			<p>
-				<label for="encryptData">Encryption data:</label>
-				<textarea name="encryptData" class="form-control" ></textarea>
-			</p>
-			<label for="decryptData">Decryption data:</label>
-			<textarea name="decryptData" class="form-control"></textarea>
-			<p class="actionButtons">
-				<button name="encryptAction" class="btn btn-primary" onclick="encrypt()">Encrypt</button>
-				<button name="decryptAction" class="btn btn-primary" onclick="decrypt()">Decrypt</button>
-				<button name="saveMessage" class="btn btn-primary" onclick="saveMessage()">Save Message</button>
-			</p>	
+		<div class="actionArea">
+			<label for="inputData" class="dataLabel">Input string:</label>
+			<textarea type="text" name="inputData" class="form-control" id="inputData"></textarea>
+			<button type="button" class="btn btn-default" onclick="nextAction()">Next</button>
+			<button type="button" class="btn btn-default" onclick="fullAction()">Do all</button>
 		</div>
-		<div class="resultArea">
-			<label for="encryptedMessage">Encrypted msg:</label>
-			<textarea name="encryptedMessage" class="form-control" disabled="disabled"></textarea>
-			<p>
-				<label for="decryptedMessage">Decrypted msg:</label>
-				<textarea name="decryptedMessage" class="form-control" disabled="disabled"></textarea>
-			</p>
+		<div class="encodedData">
+			<div class="data-row">
+				<label for="binaryData" class="dataLabel">Binary data:</label>
+				<textarea wrap="off" name="binaryData" class="form-control" disabled="disabled" ></textarea>
+			</div>
+			<div class="data-row">
+				<label for="encodeData" class="dataLabel">Encode data:</label>
+				<textarea wrap="off" name="encodeData" class="form-control" disabled="disabled"></textarea>
+			</div>
+			<div class="data-row">
+				<label for="decodeData" class="dataLabel">Decode data:</label>
+				<textarea wrap="off" name="decodeData" class="form-control" disabled="disabled" ></textarea>
+			</div>
 		</div>
 	</div>
-    <script src="js/cryptico.min.js" type="text/javascript"></script>
     <script src="js/helper.js" type="text/javascript"></script>
     <script src="js/logic.js" type="text/javascript"></script>
 </body>
