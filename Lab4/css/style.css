@@ -1,0 +1,99 @@
+.content{
+    width: 1150px;
+    margin: 0 auto;
+    padding-top: 50px;
+}
+.register-row {
+    margin-bottom: 10px;
+}
+.register {
+    width: 290px;
+}
+.register-label {
+    width: 120px;
+    display: inline-block;
+}
+.symbol {
+    width: 34px;
+}
+.rightBlock {
+    float: right;
+    width: 40%;
+}
+.leftBlock {
+    float: left;
+    width: 50%;
+    margin-left: 50px;
+    margin-top: 30px;
+}
+#dataSymb {
+    float: right;
+    margin-top: 50px;
+    width: 25px;
+    height: 45px;
+    margin-right: 160px;
+    color: #000;
+    background-color: #fff;
+    font-size: 30px;
+    border: 3px #000 solid;
+}
+#dataText {
+    float: left;
+    width: 130px;
+    height: 120px;
+    resize: none;
+    color: #000;
+    background-color: #fff;
+    border: 3px #000 solid;
+}
+.rightBlock > label {
+    display: block;
+}
+.actionArea {
+    clear: both;
+    margin-left: 50px;
+}
+.actionArea > label {
+    vertical-align: top;
+}
+.actionArea > textarea {
+    margin-top: 16px;
+    margin: 0px 0px;
+    width: 286px;
+    height: 80px;
+    resize: none;
+}
+.actionArea > button {
+    vertical-align: super;
+    margin-left: 10px;
+}
+#gammaChiper {
+    margin-bottom: 15px;
+    width: 40%;
+}
+.dataLabel {
+    width: 120px;
+    display: inline-block;
+}
+.encodedData {
+    margin-left: 50px;
+    float: left;
+}
+.encodedData textarea {
+    width: 500px;
+    height: 55px;
+    margin-top: 15px;
+    resize: none;
+}
+.register-row:after {
+    content: '';
+    width: 0; 
+    height: 0; 
+    border-top: 7px solid transparent;
+    border-bottom: 7px solid transparent;    
+    border-left: 7px solid black;
+    display: inline-block;
+}
+.form-control {
+    display: inline-block;
+}
