@@ -199,7 +199,7 @@ function nextAction() {
         initModel()
     }
 
-    document.getElementsByName("inputData")[0].disabled=true;
+    $name("inputData").disabled = true;
     model.Next();
     refreshUI();
 }
@@ -209,7 +209,7 @@ function fullAction() {
         initModel()
     }
 
-    document.getElementsByName("inputData")[0].disabled=false;
+    $name("inputData").disabled = false;
     model.DoAllScope();
     refreshUI();
 }
@@ -232,6 +232,8 @@ function refreshUI() {
             encodeData = $name('encodeData'),
             decodeData = $name('decodeData'),
             dataSymb = $name('dataSymb');
+            gammaChiper = $name('gammaChiper');
+            
         //registers
         firstReg.value = model.registerOne.GetBinaryString();
         secondReg.value = model.registerTwo.GetBinaryString();
@@ -245,5 +247,17 @@ function refreshUI() {
         encodeData.value = model.encodedBinaryString;
         decodeData.value = model.decodedBinaryString;
         dataSymb.value = model.mergedBit;
+        //gamma chiper
+        gammaChiper.value = model.chipherKey;
+        if(model.IsChipherKeyReadyToUse) {
+            $name("nextBit").disabled = true;
+        }
     }
+}
+
+function nextBit() {
+    if(!model.inProgress) {
+        initModel()
+    }
+    refreshUI();
 }

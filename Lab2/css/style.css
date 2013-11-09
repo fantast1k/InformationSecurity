@@ -67,6 +67,9 @@
     vertical-align: super;
     margin-left: 10px;
 }
+#gammaChiper {
+    margin-bottom: 15px;
+}
 .dataLabel {
     width: 120px;
     display: inline-block;
