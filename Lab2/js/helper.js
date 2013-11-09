@@ -1,11 +1,3 @@
-/**
- * Created with JetBrains WebStorm.
- * User: fantastik
- * Date: 10/19/13
- * Time: 10:17 PM
- * To change this template use File | Settings | File Templates.
- */
-
 function clone(obj) {
     // Handle the 3 simple types, and null or undefined
     if (null == obj || "object" != typeof obj) return obj;
@@ -69,4 +61,8 @@ function RemoveSpacesInString(str) {
 
 function $name(name) {
     return document.getElementsByName(name)[0];
+}
+
+function $id(id) {
+    return document.getElementById(id);
 }

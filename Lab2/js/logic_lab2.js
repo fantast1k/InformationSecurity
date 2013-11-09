@@ -1,10 +1,3 @@
-/**
- * Created with JetBrains WebStorm.
- * User: fantastik
- * Date: 11/9/13
- * Time: 10:48 AM
- * To change this template use File | Settings | File Templates.
- */
 var model_lab2;
 
 function CreateModel_lab2() {

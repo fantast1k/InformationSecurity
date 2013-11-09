@@ -1,11 +1,3 @@
-/**
- * Created with JetBrains WebStorm.
- * User: fantastik
- * Date: 11/9/13
- * Time: 10:43 AM
- * To change this template use File | Settings | File Templates.
- */
-
 function Register(pol, capacity, value) {
     if (value === undefined) {
         this.value = Math.round(Math.random() * (parseInt(Array(capacity).join('1'), 2)));
