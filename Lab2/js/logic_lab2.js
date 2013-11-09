@@ -17,8 +17,8 @@ function CreateModel_lab2() {
     }
 
     this.Next = function() {
+        this.gamma = this.register.shiftedBit.toString() + this.gamma;
         this.register.Next();
-        this.gamma += this.register.shiftedBit.toString();
     }
 
     // Private fields
@@ -43,7 +43,7 @@ function CreateModel_lab2() {
     this.__createRegister = function() {
         var polinom = this.__getPolinomForRegister();
         var val = this.__getInitialValueForRegister(polinom[0]);
-        this.register = Register(polinom.slice(0), polinom[0], val);
+        this.register = new Register(polinom.slice(1), polinom[0], val);
     }
 
     this.__getPolinomForRegister = function() {
@@ -111,10 +111,6 @@ function CreateModel_lab2() {
     }
 
     return this;
-}
-
-function test2() {
-    model_lab2.Start("11001011");
 }
 
 function initModel_lab2() {

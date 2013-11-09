@@ -7,7 +7,7 @@ function Register(pol, capacity, value) {
     }
 
     this.polinom = pol;
-    this.shiftedBit = 0;
+    this.shiftedBit = this.value & 0x1;
 
     this.Next = function() {
         var shiftBit = 0x0;
