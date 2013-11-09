@@ -137,3 +137,15 @@ var validateInputString = (function createValidator() {
     }
 })();
 
+function start_lab2() {
+
+}
+
+function next_lab2() {
+
+}
+
+function resfreshUI_lab2() {
+
+}
+

@@ -65,8 +65,26 @@ v1 ^ v2 ^ v3 ^
 			</div>
 		</div>
 		<div id="tab-part2">
-			
-		</div>
+            <div class="inputArea">
+                <label for="inputData-lab2" class="labelClass">Input data:</label>
+			    <textarea class="form-control" name="inputData-lab2"></textarea>
+                &nbsp
+                <button type="button" class="btn btn-default" name="start-lab2" onclick="start_lab2()">Start</button>
+                <button type="button" class="btn btn-default" name="next-lab2" onclick="next_lab2()">Next bit</button>
+            </div>
+            <div class="start-register">
+                <label class="labelClass" for="startRegState" class="labelClass">Register state:</label>
+                <input type="text" name="startRegState" class="form-control" disabled="disabled" />
+            </div>
+            <div class="output-polynom">
+                <label for="polynomState" class="labelClass">Polynom state:</label>
+                <input type="text" name="polynomState" class="form-control" disabled="disabled" />
+            </div>
+            <div class="output-register">
+                <label for="outputData" class="labelClass">Output data:</label>
+                <textarea wrap="off" name="decodeData" class="form-control" disabled="disabled" ></textarea>
+            </div>
+        </div>
 	</div>
     <script src="js/helper.js" type="text/javascript"></script>
     <script src="js/shared.js" type="text/javascript"></script>

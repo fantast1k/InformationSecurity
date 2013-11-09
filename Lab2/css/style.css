@@ -97,3 +97,31 @@
 .form-control {
     display: inline-block;
 }
+/*Part 2 */
+#tab-part2 {
+    display: none;
+}
+.inputArea {
+    margin-bottom: 20px;
+}
+.labelClass {
+    width: 120px;
+}
+.inputArea textarea {
+    width: 40%;
+}
+.start-register {
+    margin-bottom: 20px;
+}
+.start-register input {
+    width: 40%;
+}
+.output-polynom {
+    margin-bottom: 20px;
+}
+.output-polynom input {
+    width: 30%;
+}
+.output-register textarea {
+    width: 60%;
+}
