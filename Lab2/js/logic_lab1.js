@@ -1,9 +1,9 @@
-var model;
+var model_lab1;
 
-function CreateModel() {
-    this.registerOne = new CreateRegister([13,4,3,1,0], 32);
-    this.registerTwo = new CreateRegister([24,4,3,1,0], 30);
-    this.registerThree = new CreateRegister([25,3,0], 28);
+function CreateModel_lab1() {
+    this.registerOne = new Register([13,4,3,1,0], 32);
+    this.registerTwo = new Register([24,4,3,1,0], 30);
+    this.registerThree = new Register([25,3,0], 28);
 
     this.mergedBit = 0;
     this.inProgress = false;
@@ -155,38 +155,10 @@ function CreateModel() {
     return this;
 }
 
-function CreateRegister(pol, capacity) {
-    this.value = Math.round(Math.random() * (parseInt(Array(capacity).join('1'), 2)));
-    this.polinom = pol;
-    this.shiftedBit = 0;
-
-    this.Next = function() {
-        var shiftBit = 0x0;
-        for (var i = 0; i < this.polinom.length; i++) {
-            shiftBit ^= (this.value >> this.polinom[i]);
-            shiftBit >>>= 0;
-        }
-        this.value = ((((shiftBit & 0x1) << capacity - 1) >>> 0) | (this.value >>> 1)) >>> 0;
-        this.shiftedBit = this.value & 0x1;
-        return this.shiftedBit;
-    }
-    this.GetBinaryString = function() {
-        return (Array(capacity).join("0") + this.value.toString(2)).substr(-capacity);
-    }
-
-    console.log("Shift register have been created with start value: " + this.value.toString(16));
-    return this;
-}
-
-function main() {
-    model = new CreateModel();
-    refreshUILab1();
-}
-
-function initModel() {
+function initModel_lab1() {
     var inputData = document.getElementById('inputData').value;
     if(inputData !== undefined && inputData.length > 0) {
-        model.Start(inputData);
+        model_lab1.Start(inputData);
         return true;
     }
     else {
@@ -196,31 +168,34 @@ function initModel() {
 }
 
 function nextAction() {
-    if(!model.inProgress) {
-        initModel()
-    }
-
-    $name("inputData").disabled = true;
-    model.Next();
-    refreshUILab1();
-}
-
-function fullAction() {
-    if(!model.inProgress) {
-        initModel()
+    if(!model_lab1.inProgress) {
+        initModel_lab1()
     }
 
     $name("inputData").disabled = false;
-    model.DoAllScope();
-    refreshUILab1();
+    model_lab1.Next();
+    refreshUI_lab1();
 }
 
-function $name(name) {
-    return document.getElementsByName(name)[0];
+function fullAction() {
+    if(!model_lab1.inProgress) {
+        initModel_lab1()
+    }
+
+    $name("inputData").disabled = false;
+    model_lab1.DoAllScope();
+    refreshUI_lab1();
 }
 
-function refreshUILab1() {
-    if(model !== undefined) {
+function nextBit() {
+    if(!model.inProgress) {
+        initModel()
+    }
+    refreshUI_lab1();
+}
+
+function refreshUI_lab1() {
+    if(model_lab1 !== undefined) {
         //registers
         var firstReg = $name('firstReg'),
             secondReg = $name('secondReg'),
@@ -233,23 +208,23 @@ function refreshUILab1() {
             binaryData = $name('binaryData'),
             encodeData = $name('encodeData'),
             decodeData = $name('decodeData'),
-            dataSymb = $name('dataSymb');
+            dataSymb = $name('dataSymb'),
             gammaChiper = $name('gammaChiper');
-            
+
         //registers
-        firstReg.value = model.registerOne.GetBinaryString();
-        secondReg.value = model.registerTwo.GetBinaryString();
-        thirdReg.value = model.registerThree.GetBinaryString();
+        firstReg.value = model_lab1.registerOne.GetBinaryString();
+        secondReg.value = model_lab1.registerTwo.GetBinaryString();
+        thirdReg.value = model_lab1.registerThree.GetBinaryString();
         //symbols
-        firstSymb.value = model.registerOne.shiftedBit;
-        secondSymb.value = model.registerTwo.shiftedBit;
-        thirdSymb.value = model.registerThree.shiftedBit;
+        firstSymb.value = model_lab1.registerOne.shiftedBit;
+        secondSymb.value = model_lab1.registerTwo.shiftedBit;
+        thirdSymb.value = model_lab1.registerThree.shiftedBit;
         //data fields
-        binaryData.value = model.plainBinaryString;
-        encodeData.value = model.encodedBinaryString;
-        decodeData.value = model.decodedBinaryString;
-        dataSymb.value = model.mergedBit;
-        //gamma chiper
+        binaryData.value = model_lab1.plainBinaryString;
+        encodeData.value = model_lab1.encodedBinaryString;
+        decodeData.value = model_lab1.decodedBinaryString;
+        dataSymb.value = model_lab1.mergedBit;
+       //gamma chiper
         gammaChiper.value = model.chipherKey;
         if(model.IsChipherKeyReadyToUse) {
             $name("nextBit").disabled = true;
@@ -257,9 +232,3 @@ function refreshUILab1() {
     }
 }
 
-function nextBit() {
-    if(!model.inProgress) {
-        initModel()
-    }
-    refreshUILab1();
-}
