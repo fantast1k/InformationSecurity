@@ -188,8 +188,8 @@ function fullAction() {
 }
 
 function nextBit() {
-    if(!model.inProgress) {
-        initModel()
+    if(!model_lab1.IsChipherKeyReadyToUse()) {
+        model_lab1.AppendNextBitForChipher();
     }
     refreshUI_lab1();
 }
@@ -225,8 +225,8 @@ function refreshUI_lab1() {
         decodeData.value = model_lab1.decodedBinaryString;
         dataSymb.value = model_lab1.mergedBit;
        //gamma chiper
-        gammaChiper.value = model.chipherKey;
-        if(model.IsChipherKeyReadyToUse) {
+        gammaChiper.value = model_lab1.chipherKey;
+        if(model_lab1.IsChipherKeyReadyToUse()) {
             $name("nextBit").disabled = true;
         }
     }
