@@ -62,3 +62,11 @@ function DataToBinaryString(data) {
     }
     return str;
 }
+
+function RemoveSpacesInString(str) {
+    return str.replace('/\\s/g', '');
+}
+
+function $name(name) {
+    return document.getElementsByName(name)[0];
+}
