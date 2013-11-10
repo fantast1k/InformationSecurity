@@ -7,5 +7,5 @@
  */
 
 function main() {
-    
+    model_part1 = new Model_part1();
 }

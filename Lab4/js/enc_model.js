@@ -7,11 +7,12 @@
  */
 
 function EncModel(p, g, Kc, m) {
+    // UI elements
     this.p = helper.parseStringToInt(p);
     this.g = helper.parseStringToInt(g);
     this.Kc = helper.parseStringToInt(Kc);
     this.m = helper.parseStringToInt(m);
-
+    // UI elements
     this.k = NaN;
     this.a = NaN;
     this.b = NaN;
@@ -19,8 +20,9 @@ function EncModel(p, g, Kc, m) {
 
     this.errorMessage = '';
 
-
     this.IsDataValid = function() {
+        this.errorMessage = '';
+
         var valCheck = function(a, name) {
             var valid = a !== NaN && a !== undefined;
             if (!valid)

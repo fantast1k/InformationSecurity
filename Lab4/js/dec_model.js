@@ -7,6 +7,7 @@
  */
 
 function DecModel(Ko, p, g, m, a, b){
+    // UI elements
     this.Ko = Ko;
     this.p = p;
     this.g = g;
