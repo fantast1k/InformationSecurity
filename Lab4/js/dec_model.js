@@ -47,8 +47,7 @@ function DecModel(Ko, p, g, m, a, b){
         return this.errorMessage.length == 0;
     }
 
-    this.ValidateSignature = function()
-    {
+    this.ValidateSignature = function() {
         return this.__calculateLeftSideOfEquastion() == this.__calculateRightSideOfEquastion();
     }
 
