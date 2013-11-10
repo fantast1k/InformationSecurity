@@ -3,97 +3,62 @@
     margin: 0 auto;
     padding-top: 50px;
 }
-.register-row {
-    margin-bottom: 10px;
+.pg-input {
+    width: 20%;
+    margin: 0 auto;
 }
-.register {
-    width: 290px;
+.pg-input label {
+    width: 10%;
 }
-.register-label {
-    width: 120px;
+.pg-input input {
+    width: 80%;
     display: inline-block;
+    margin: 0 0 10px 0;
 }
-.symbol {
-    width: 34px;
-}
-.rightBlock {
-    float: right;
-    width: 40%;
-}
-.leftBlock {
-    float: left;
+.left-block {
     width: 50%;
-    margin-left: 50px;
-    margin-top: 30px;
+    float: left;
+    border-right: thick solid #000;
 }
-#dataSymb {
+.right-block {
+    width: 50%;
     float: right;
-    margin-top: 50px;
-    width: 25px;
-    height: 45px;
-    margin-right: 160px;
-    color: #000;
-    background-color: #fff;
-    font-size: 30px;
-    border: 3px #000 solid;
 }
-#dataText {
-    float: left;
-    width: 130px;
-    height: 120px;
-    resize: none;
-    color: #000;
-    background-color: #fff;
-    border: 3px #000 solid;
+.right-block label,
+.left-block label {
+    padding-left: 5px;
+    width: 5%;
 }
-.rightBlock > label {
-    display: block;
+.left-block p {
+    margin-top: 10px;
 }
-.actionArea {
-    clear: both;
-    margin-left: 50px;
-}
-.actionArea > label {
-    vertical-align: top;
-}
-.actionArea > textarea {
-    margin-top: 16px;
-    margin: 0px 0px;
-    width: 286px;
-    height: 80px;
-    resize: none;
-}
-.actionArea > button {
-    vertical-align: super;
-    margin-left: 10px;
-}
-#gammaChiper {
-    margin-bottom: 15px;
+.inputData {
     width: 40%;
-}
-.dataLabel {
-    width: 120px;
     display: inline-block;
 }
-.encodedData {
-    margin-left: 50px;
-    float: left;
+.label {
+    margin: 0 0 0 30px;
 }
-.encodedData textarea {
-    width: 500px;
-    height: 55px;
-    margin-top: 15px;
-    resize: none;
+.info-block span {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    font-weight: bold;
 }
-.register-row:after {
-    content: '';
-    width: 0; 
-    height: 0; 
-    border-top: 7px solid transparent;
-    border-bottom: 7px solid transparent;    
-    border-left: 7px solid black;
+.a-span {
+    margin-left: 28%;
+}
+.b-span {
+    margin-left: 43%;
+}
+.info-block input {
+    width: 45%;
     display: inline-block;
 }
-.form-control {
-    display: inline-block;
+.right-block button {
+    margin-left: 20px;
+}
+
+/*Part 2 */
+#tab-part2 {
+    display: none;
 }

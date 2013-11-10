@@ -1,11 +1,3 @@
-/**
- * Created with JetBrains WebStorm.
- * User: fantastik
- * Date: 11/10/13
- * Time: 1:05 AM
- * To change this template use File | Settings | File Templates.
- */
-
 function DecModel(Ko, p, g, m, a, b){
     // UI elements
     this.Ko = Ko;

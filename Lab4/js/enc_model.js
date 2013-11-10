@@ -1,11 +1,3 @@
-/**
- * Created with JetBrains WebStorm.
- * User: fantastik
- * Date: 11/9/13
- * Time: 11:26 PM
- * To change this template use File | Settings | File Templates.
- */
-
 function EncModel(p, g, Kc, m) {
     // UI elements
     this.p = helper.parseStringToInt(p);
