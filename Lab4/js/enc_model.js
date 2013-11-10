@@ -15,16 +15,10 @@ function EncModel(p, g, Kc, m) {
     this.IsDataValid = function() {
         this.errorMessage = '';
 
-        var valCheck = function(a, name) {
-            var valid = a !== NaN && a !== undefined;
-            if (!valid)
-                this.errorMessage += name + " shoud be defined\n";
-            return valid
-        }
-        valCheck(this.p, 'p');
-        valCheck(this.g, 'g');
-        valCheck(this.Kc, 'Kc');
-        valCheck(this.m, 'm');
+        this.__validateValue(this.p, 'p');
+        this.__validateValue(this.g, 'g');
+        this.__validateValue(this.Kc, 'Kc');
+        this.__validateValue(this.m, 'm');
 
         if (this.p < 3)
             this.errorMessage += "p should be greater than 3\n";
@@ -102,5 +96,12 @@ function EncModel(p, g, Kc, m) {
 
     this.__getReverseMultiplier = function() {
         return Math.pow(this.k, helper.getRevertedModuleElement(this.k) - 1) % (this.p - 1);
+    }
+
+    this.__validateValue = function(a, name) {
+        var valid = !isNaN(a) && a !== undefined;
+        if (!valid)
+            this.errorMessage += name + " shoud be defined\n";
+        return valid
     }
 }

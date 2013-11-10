@@ -1,27 +1,23 @@
 function DecModel(Ko, p, g, m, a, b){
     // UI elements
-    this.Ko = Ko;
-    this.p = p;
-    this.g = g;
-    this.m = m;
-    this.a = a;
-    this.b = b;
+    this.Ko = helper.parseStringToInt(Ko);
+    this.p = helper.parseStringToInt(p);
+    this.g = helper.parseStringToInt(g);
+    this.m = helper.parseStringToInt(m);
+    this.a = helper.parseStringToInt(a);
+    this.b = helper.parseStringToInt(b);
 
     this.errorMessage = '';
 
     this.IsDataValid = function() {
-        var valCheck = function(a, name) {
-            var valid = a !== NaN && a !== undefined;
-            if (!valid)
-                this.errorMessage += name + " shoud be defined\n";
-            return valid
-        }
-        valCheck(this.Ko, 'Ko');
-        valCheck(this.p, 'p');
-        valCheck(this.g, 'g');
-        valCheck(this.m, 'm');
-        valCheck(this.a, 'a');
-        valCheck(this.b, 'b');
+        this.errorMessage = '';
+
+        this.__validateValue(this.Ko, 'Ko');
+        this.__validateValue(this.p, 'p');
+        this.__validateValue(this.g, 'g');
+        this.__validateValue(this.m, 'm');
+        this.__validateValue(this.a, 'a');
+        this.__validateValue(this.b, 'b');
 
         if (this.p < 3)
             this.errorMessage += "p should be greater than 3\n";
@@ -52,10 +48,17 @@ function DecModel(Ko, p, g, m, a, b){
     }
 
     this.__calculateLeftSideOfEquastion = function() {
-        return (Math.pow(this.a, this.b) * Math.pow(this.b, this.a)) % this.p;
+        return (Math.pow(this.a, this.b) * Math.pow(this.Ko, this.a)) % this.p;
     }
 
     this.__calculateRightSideOfEquastion = function() {
         return Math.pow(this.g, this.m) % this.p;
+    }
+
+    this.__validateValue = function(a, name) {
+        var valid = !isNaN(a) && a !== undefined;
+        if (!valid)
+            this.errorMessage += name + " shoud be defined\n";
+        return valid
     }
 }
