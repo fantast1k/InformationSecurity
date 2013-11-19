@@ -81,6 +81,9 @@ function Text_line(line) {
 }
 
  function shifr() {
+    p = $name('p-part1').value;
+    q = $name('q-part1').value;
+    
     N = p * q;
     f = (p - 1) * (q - 1);
     Text_line($name('text-Part1').value);
