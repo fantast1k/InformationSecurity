@@ -1,9 +1,5 @@
 var privateKey, publicKey, encryptionResult;
 
-function $name(name) {
-    return document.getElementsByName(name)[0];
-}
-
 function generateKey() {
     var keyData = $name('keyData').value;
     var bitLength = $name('bitLength').value;

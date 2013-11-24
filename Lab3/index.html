@@ -7,49 +7,78 @@
 </head>
 <body>
 	<div class="content">
-		<div class="keyArea">
-			<label for="keyData">Data for keys:</label>
-			<input type="text" name="keyData" class="form-control"/>
-			<label for="bitLength" class="bitLengthLabel">Bit length:</label>
-			<select name="bitLength" id="bitLength" class="form-control">
-				<option value="512">515</option>
-				<option value="1024">1024</option>
-				<option value="2048">2048</option>
-				<option value="4096">4096</option>
-				<option value="8192">8192</option>
-			</select>
-			<p>
-				<button name="keysGeneration" class="btn btn-info" onclick="generateKey()">Generate Keys</button>
-				<button name="saveKeys" class="btn btn-info" onclick="saveKeys()">Save keys</button>
-			</p>
+		<ul class="nav nav-tabs">
+		  <li class="active" name="link-part1" onclick="showPart1()"><a href="javascript:void(0)">Part 1</a></li>
+		  <li name="link-part2" onclick="showPart2()"><a href="javascript:void(0)">Part 2</a></li>
+		</ul>
+		<br/>
+		<div id="tab-part1">
+			<div class="right-column">
+				<label for="text-Part1">Source data (only english):</label>
+				<textarea name="text-Part1" class="form-control"></textarea>
+				<label for="key-part1">Key:</label>
+				<input type="text" name="key-part1" class="form-control" />
+				<p><label for="p-part1">p:</label></p>
+				<input type="text" name="p-part1" class="form-control" value="19" />
+				<p><label for="q-part1">q:</label></p>
+				<input type="text" name="q-part1" class="form-control" value="11" />
+				<p><button name="shifrAction" class="btn btn-primary" onclick="shifr()">Encrypt</button></p>
+				<p><label>Euler function = 180</label></p>
+				<p><label></label></p>
+			</div>
+			<div class="left-column">
+				<label for="outputData">Output data:</label>
+				<textarea name="outputData" disabled="disabled" class="form-control"></textarea>
+			</div>
 		</div>
-		<div class="displayKey">
-			<label for="publicKey">Public key:</label>
-			<textarea name="publicKey" class="form-control" disabled="disabled"></textarea>
+		<div id="tab-part2">
+			<div class="keyArea">
+				<label for="keyData">Data for keys:</label>
+				<input type="text" name="keyData" class="form-control"/>
+				<label for="bitLength" class="bitLengthLabel">Bit length:</label>
+				<select name="bitLength" id="bitLength" class="form-control">
+					<option value="512">515</option>
+					<option value="1024">1024</option>
+					<option value="2048">2048</option>
+					<option value="4096">4096</option>
+					<option value="8192">8192</option>
+				</select>
+				<p>
+					<button name="keysGeneration" class="btn btn-info" onclick="generateKey()">Generate Keys</button>
+					<button name="saveKeys" class="btn btn-info" onclick="saveKeys()">Save keys</button>
+				</p>
+			</div>
+			<div class="displayKey">
+				<label for="publicKey">Public key:</label>
+				<textarea name="publicKey" class="form-control" disabled="disabled"></textarea>
+			</div>
+			<div class="encryptionArea">
+				<p>
+					<label for="encryptData">Encryption data:</label>
+					<textarea name="encryptData" class="form-control" ></textarea>
+				</p>
+				<label for="decryptData">Decryption data:</label>
+				<textarea name="decryptData" class="form-control"></textarea>
+				<p class="actionButtons">
+					<button name="encryptAction" class="btn btn-primary" onclick="encrypt()">Encrypt</button>
+					<button name="decryptAction" class="btn btn-primary" onclick="decrypt()">Decrypt</button>
+					<button name="saveMessage" class="btn btn-primary" onclick="saveMessage()">Save Message</button>
+				</p>	
+			</div>
+			<div class="resultArea">
+				<label for="encryptedMessage">Encrypted msg:</label>
+				<textarea name="encryptedMessage" class="form-control" disabled="disabled"></textarea>
+				<p>
+					<label for="decryptedMessage">Decrypted msg:</label>
+					<textarea name="decryptedMessage" class="form-control" disabled="disabled"></textarea>
+				</p>
+			</div>
 		</div>
-		<div class="encryptionArea">
-			<p>
-				<label for="encryptData">Encryption data:</label>
-				<textarea name="encryptData" class="form-control" ></textarea>
-			</p>
-			<label for="decryptData">Decryption data:</label>
-			<textarea name="decryptData" class="form-control"></textarea>
-			<p class="actionButtons">
-				<button name="encryptAction" class="btn btn-primary" onclick="encrypt()">Encrypt</button>
-				<button name="decryptAction" class="btn btn-primary" onclick="decrypt()">Decrypt</button>
-				<button name="saveMessage" class="btn btn-primary" onclick="saveMessage()">Save Message</button>
-			</p>	
-		</div>
-		<div class="resultArea">
-			<label for="encryptedMessage">Encrypted msg:</label>
-			<textarea name="encryptedMessage" class="form-control" disabled="disabled"></textarea>
-			<p>
-				<label for="decryptedMessage">Decrypted msg:</label>
-				<textarea name="decryptedMessage" class="form-control" disabled="disabled"></textarea>
-			</p>
-		</div>
+
 	</div>
     <script src="js/cryptico.min.js" type="text/javascript"></script>
-    <script src="js/logic.js" type="text/javascript"></script>
+    <script src="js/logic-p1.js" type="text/javascript"></script>
+    <script src="js/logic-p2.js" type="text/javascript"></script>
+    <script src="js/shared.js" type="text/javascript"></script>
 </body>
 </html>

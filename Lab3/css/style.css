@@ -6,10 +6,29 @@
 .form-control {
     display: inline-block;
 }
+.right-column {
+    width: 30%;
+    float: left;
+}
+.left-column {
+    width: 66%;
+    float: right;
+}
+.left-column label {
+    margin: 0 auto;
+}
+.left-column textarea {
+    height: 300px;
+}
+/*Part 2 */
+#tab-part2 {
+    display: none;
+}
+
 p {
     margin-top: 10px;
 }
-label {
+#tab-part2 label {
     width: 10%;
 }
 .keyArea input {

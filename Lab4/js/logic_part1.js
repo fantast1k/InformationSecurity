@@ -61,6 +61,8 @@ function refreshSendUI_part1() {
     $name('cb-input').value = model_part1.encModel.b;
     $name('k-input').value = model_part1.encModel.k;
     $name('ko-input').value = model_part1.encModel.Ko;
+    $name('p-input').disabled = 'true';
+    $name('g-input').disabled = 'true';
 }
 
 function fullfillReceiveUI_part1() {
